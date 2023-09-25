@@ -81,25 +81,6 @@ export function readMessage<TAbi extends readonly unknown[] = typeof messageABI,
 }
 
 /**
- * Wraps __{@link writeContract}__ with `abi` set to __{@link messageABI}__.
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xcc5a0d6268d70811edad77799f2168afe6382e89)
- */
-export function writeMessage<TFunctionName extends string, TMode extends WriteContractMode, TChainId extends number = keyof typeof messageAddress>(
-  config:
-    | (Omit<WriteContractPreparedArgs<typeof messageABI, TFunctionName>, 'abi' | 'address'> & {
-        mode: TMode
-        chainId?: TMode extends 'prepared' ? TChainId : keyof typeof messageAddress
-      })
-    | (Omit<WriteContractUnpreparedArgs<typeof messageABI, TFunctionName>, 'abi' | 'address'> & {
-        mode: TMode
-        chainId?: TMode extends 'prepared' ? TChainId : keyof typeof messageAddress
-      })
-) {
-  return writeContract({ abi: messageABI, address: messageAddress[11155111], ...config } as WriteContractArgs<typeof messageABI, TFunctionName>)
-}
-
-/**
  * Wraps __{@link prepareWriteContract}__ with `abi` set to __{@link messageABI}__.
  *
  * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xcc5a0d6268d70811edad77799f2168afe6382e89)
@@ -111,16 +92,4 @@ export function prepareWriteMessage<TAbi extends readonly unknown[] = typeof mes
     TAbi,
     TFunctionName
   >)
-}
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link messageABI}__.
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xcc5a0d6268d70811edad77799f2168afe6382e89)
- */
-export function watchMessageEvent<TAbi extends readonly unknown[] = typeof messageABI, TEventName extends string = string>(
-  config: Omit<WatchContractEventConfig<TAbi, TEventName>, 'abi' | 'address'> & { chainId?: keyof typeof messageAddress },
-  callback: WatchContractEventCallback<TAbi, TEventName>
-) {
-  return watchContractEvent({ abi: messageABI, address: messageAddress[11155111], ...config } as WatchContractEventConfig<TAbi, TEventName>, callback)
 }
