@@ -1,5 +1,5 @@
 import { ThemingProps } from '@chakra-ui/react'
-import { mainnet, sepolia, polygon, optimism, arbitrum, filecoinCalibration } from '@wagmi/chains'
+import { filecoinCalibration } from '@wagmi/chains'
 
 export const SITE_NAME = 'Daopia'
 export const SITE_DESCRIPTION = 'Daopia, New Finance For DataDaos'
