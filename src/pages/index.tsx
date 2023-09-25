@@ -1,4 +1,5 @@
 import { Box, Text } from '@chakra-ui/react'
+import Dashboard from 'components/Dashboard'
 import FeaturesSection from 'components/landing/FeaturesSection'
 import DaoHowItWorksSection from 'components/landing/HowItWorksDaoSection'
 import UserHowItWorksSection from 'components/landing/HowItWorksUserSection'
@@ -22,7 +23,7 @@ export default function Home() {
           <UserHowItWorksSection />
         </>
       ) : (
-        <MainSection />
+        <Dashboard />
       )}
     </>
   )
