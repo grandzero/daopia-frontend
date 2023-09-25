@@ -6369,7 +6369,7 @@ viem@^0.1.14:
     isomorphic-ws "^5.0.0"
     ws "^8.12.0"
 
-viem@^1.0.0, viem@^1.10.14:
+viem@^1.0.0:
   version "1.10.14"
   resolved "https://registry.yarnpkg.com/viem/-/viem-1.10.14.tgz#f32ab489f36700987accd93daa9b43135e39bc8b"
   integrity sha512-GRwFXLFr+/7+7nYYkABgHom3zMIE3DdxZ/DP78QlYWUanpjUV5IebxMOm6pfKD+ZAj3vf9YPAmz+WogjiUgDWw==
