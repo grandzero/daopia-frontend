@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 import { Box, Container } from '@chakra-ui/react'
 import { Header } from './Header'
-import { Footer } from './Footer'
+import Footer from './Footer'
 import { NetworkStatus } from './NetworkStatus'
 import MainSection from 'components/landing/MainSection'
 
@@ -20,7 +20,7 @@ export function Layout(props: Props) {
         <NetworkStatus />
       </Box> */}
 
-      {/* <Footer /> */}
+      <Footer />
     </Box>
   )
 }

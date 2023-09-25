@@ -14,7 +14,6 @@ const MainSection = () => {
       justify="center"
       h="100vh"
       w="100%"
-      bgGradient={gradient[colorMode]}
       color={colorMode === 'light' ? 'gray.800' : 'gray.100'}>
       <Box textAlign="center" zIndex="1" w={'60%'}>
         <Text fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }} fontWeight={200} mb={4} fontFamily="DelaGothicOne-Regular">

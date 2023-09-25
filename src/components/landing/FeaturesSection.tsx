@@ -1,6 +1,7 @@
-import { Box, Flex, Heading, Text, useColorMode, Icon, Stack } from '@chakra-ui/react'
+import { Box, Flex, Heading, Text, useColorMode, Icon, Stack, Img } from '@chakra-ui/react'
 import { CheckCircleIcon, InfoIcon, TimeIcon, DownloadIcon, AddIcon } from '@chakra-ui/icons'
-
+// import register image from assets
+import register from '../../assets/register.jpg'
 const FeaturesSection = () => {
   const { colorMode } = useColorMode()
   const textColor = { light: 'gray.700', dark: 'gray.200' }
@@ -43,22 +44,26 @@ const FeaturesSection = () => {
   }
 
   return (
-    <Box bgGradient={bgColor[colorMode]} color={textColor[colorMode]} py={12}>
+    <Box bg={colorMode === 'light' ? 'gray.300' : 'gray.900'} color={textColor[colorMode]} py={12}>
       <Flex direction="column" align="center">
         <Heading mb={6} fontWeight={200} fontFamily="DelaGothicOne-Regular" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
           Features
         </Heading>
-        <Stack spacing={8} w={{ base: '90%', md: '70%' }}>
+        <Stack spacing={20} w={{ base: '90%', md: '70%' }}>
           {features.map((feature, index) => (
             <Flex
               key={index}
               direction={{ base: 'column', md: index % 2 === 0 ? 'row' : 'row-reverse' }}
               align="center"
               justify="center"
-              mb={{ base: 4, md: 0 }}
+              mb={{ base: 15, md: 0 }}
+              mt={{ base: 15, md: 0 }}
               w="full">
               <Box flexShrink={0}>
                 <Icon as={feature.icon} boxSize={{ base: '64px', md: '150px' }} />
+                {/* <Box flexShrink={0}>
+                  <Img src={'/register.jpg'} alt="Daopia" width={250} height={250} />
+                </Box> */}
               </Box>
               <Box
                 mt={{ base: 2, md: 0 }}
