@@ -3,6 +3,7 @@ import { Box, Container } from '@chakra-ui/react'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { NetworkStatus } from './NetworkStatus'
+import MainSection from 'components/landing/MainSection'
 
 interface Props {
   children: ReactNode
@@ -13,13 +14,13 @@ export function Layout(props: Props) {
     <Box margin="0 auto" minH="100vh">
       <Header />
 
-      <Container maxW="container.lg">{props.children}</Container>
+      {props.children}
 
-      <Box position="fixed" bottom={2} right={2}>
+      {/* <Box position="fixed" bottom={2} right={2}>
         <NetworkStatus />
-      </Box>
+      </Box> */}
 
-      <Footer />
+      {/* <Footer /> */}
     </Box>
   )
 }

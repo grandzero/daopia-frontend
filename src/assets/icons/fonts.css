@@ -1,0 +1,6 @@
+@font-face {
+  font-family: 'DelaGothicOne-Regular'; /* Define the custom font name */
+  src: url('/fonts/DelaGothicOne-Regular.ttf') format('truetype'); /* Path to the font file */
+  font-weight: normal;
+  font-style: normal;
+}
