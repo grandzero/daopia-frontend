@@ -16,7 +16,18 @@ export function Header(props: Props) {
   const className = props.className ?? ''
   const { colorMode, toggleColorMode } = useColorMode()
   return (
-    <Box bg={colorMode === 'light' ? 'teal.500' : 'gray.800'} px={4} py={2} shadow="md" color={colorMode === 'light' ? 'white' : 'gray.200'}>
+    <Box
+      position="fixed"
+      top={0}
+      left={0}
+      right={0}
+      zIndex={1000}
+      px={4}
+      py={2}
+      shadow="md"
+      color={colorMode === 'light' ? 'gray.800' : 'gray.200'}
+      bg={colorMode === 'light' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'}
+      backdropFilter="blur(10px)">
       <Flex justifyContent="space-between" alignItems="center">
         <Text fontSize="lg" fontWeight="bold" fontFamily="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
           Daopia

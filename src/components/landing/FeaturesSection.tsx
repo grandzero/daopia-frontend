@@ -3,7 +3,6 @@ import { CheckCircleIcon, InfoIcon, TimeIcon, DownloadIcon, AddIcon } from '@cha
 
 const FeaturesSection = () => {
   const { colorMode } = useColorMode()
-  const bgColor = { light: 'teal.50', dark: 'gray.800' }
   const textColor = { light: 'gray.700', dark: 'gray.200' }
 
   const features = [
@@ -38,9 +37,13 @@ const FeaturesSection = () => {
       icon: DownloadIcon,
     },
   ]
+  const bgColor = {
+    light: 'linear-gradient(45deg, rgba(255, 215, 0, 0.1), rgba(255, 140, 0, 0.1))',
+    dark: 'linear-gradient(45deg, rgba(75, 0, 130, 0.7), rgba(148, 0, 211, 0.7))',
+  }
 
   return (
-    <Box bg={bgColor[colorMode]} color={textColor[colorMode]} py={12}>
+    <Box bgGradient={bgColor[colorMode]} color={textColor[colorMode]} py={12}>
       <Flex direction="column" align="center">
         <Heading mb={6} fontWeight={200} fontFamily="DelaGothicOne-Regular" fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
           Features
