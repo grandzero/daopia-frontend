@@ -22,7 +22,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useReadTable } from 'hooks/useReadTable'
 import lighthouse from '@lighthouse-web3/sdk'
-import { ethers } from 'ethers'
+import { ethers } from 'ethers-new'
 interface FileData {
   contributer: string
   cid: string

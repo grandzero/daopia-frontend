@@ -3,7 +3,7 @@ import { DaoDetailsData, FrontendDetailsData, DealDetailsData, PaymentType, Regi
 import { useEffect, useState } from 'react'
 import { Box, Container, Heading, Text, Image, useColorModeValue, Flex, Stack, Center, Button, Icon, HStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { ethers } from 'ethers'
+import { ethers } from 'ethers-new'
 import moment from 'moment'
 import { FaFileAlt, FaHandHoldingUsd, FaListAlt } from 'react-icons/fa'
 import daopiaABI from '../../../assets/abis/daopiaABI'
