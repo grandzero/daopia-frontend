@@ -1,11 +1,11 @@
 import { RequestedData, useReadDaopia } from 'hooks/useReadDaopia'
 import { DaoDetailsData, FrontendDetailsData, DealDetailsData, PaymentType, RegistrationStatus } from '../../../types'
 import { useEffect, useState } from 'react'
-import { Box, Container, Heading, Text, Image, useColorModeValue, Flex, Stack, Center, Button, Icon } from '@chakra-ui/react'
+import { Box, Container, Heading, Text, Image, useColorModeValue, Flex, Stack, Center, Button, Icon, HStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { ethers } from 'ethers'
 import moment from 'moment'
-import { FaHandHoldingUsd } from 'react-icons/fa'
+import { FaFileAlt, FaHandHoldingUsd, FaListAlt } from 'react-icons/fa'
 import daopiaABI from '../../../assets/abis/daopiaABI'
 // Import wagmi to get the connected account address
 import { useAccount, useConnect } from 'wagmi'
@@ -35,7 +35,8 @@ function DaoDetails({ daoData }: any) {
   const boxColorMode = useColorModeValue('white', 'gray.800')
   const headlineColorMode = useColorModeValue('gray.700', 'white')
   const normalTextColorMode = useColorModeValue('gray.600', 'gray.300')
-  const { address, connector } = useAccount()
+  const { address } = useAccount()
+  const router = useRouter()
   const result = useReadDaopia({ requestedData: RequestedData.DaoDetails, args: [daoData?.dao] })
   const frontendResult: any = useReadDaopia({ requestedData: RequestedData.DaoList, args: [] })
   const dealResult = useReadDaopia({ requestedData: RequestedData.DealDetails, args: [daoData?.dao] })
@@ -173,6 +174,28 @@ function DaoDetails({ daoData }: any) {
                   </Button>
                 )}
               </Center>
+              <HStack spacing={4} mt={4}>
+                <Button
+                  onClick={() => {
+                    router.push(`/dao/contributions/${daoData.dao}`)
+                  }}
+                  colorScheme="blue"
+                  variant="solid"
+                  size="md"
+                  leftIcon={<Icon as={FaListAlt} />}>
+                  See Contributions
+                </Button>
+                <Button
+                  onClick={() => {
+                    router.push(`/dao/files/${daoData.dao}`)
+                  }}
+                  colorScheme="purple"
+                  variant="solid"
+                  size="md"
+                  leftIcon={<Icon as={FaFileAlt} />}>
+                  See Files
+                </Button>
+              </HStack>
             </Box>
           </Box>
         )}
