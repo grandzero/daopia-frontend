@@ -11,9 +11,9 @@ interface FileData {
   description: string
 }
 
-const DaoFilesPage: React.FC = () => {
-  const router = useRouter()
-  const { dao } = router.query
+const DaoFilesPage: React.FC = ({ daoData }: any) => {
+  //   const router = useRouter()
+  const { dao } = daoData
   const [files, setFiles] = useState<FileData[]>([])
 
   const bgColor = useColorModeValue('rgba(255, 255, 255, 0.8)', 'rgba(0, 0, 0, 0.8)')
@@ -77,6 +77,16 @@ const DaoFilesPage: React.FC = () => {
       </Box>
     </Container>
   )
+}
+
+export async function getServerSideProps(context: any) {
+  const { dao } = context.params
+  let daoData = { dao }
+  return {
+    props: {
+      daoData,
+    },
+  }
 }
 
 export default DaoFilesPage

@@ -1,6 +1,6 @@
 import React from 'react'
 // import { Flex, useColorModeValue, Spacer, Heading } from '@chakra-ui/react'
-import { Box, Flex, Text, Button, useColorMode, IconButton } from '@chakra-ui/react'
+import { Box, Flex, Text, Button, useColorMode, IconButton, Link } from '@chakra-ui/react'
 import { SunIcon, MoonIcon } from '@chakra-ui/icons'
 import { SITE_NAME } from 'utils/config'
 import { LinkComponent } from './LinkComponent'
@@ -29,9 +29,13 @@ export function Header(props: Props) {
       bg={colorMode === 'light' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'}
       backdropFilter="blur(10px)">
       <Flex justifyContent="space-between" alignItems="center">
-        <Text fontSize="lg" fontWeight="bold" fontFamily="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
-          Daopia
-        </Text>
+        <Link href="/">
+          <a>
+            <Text fontSize="lg" fontWeight="bold" fontFamily="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" cursor="pointer">
+              Daopia
+            </Text>
+          </a>
+        </Link>
         <Flex alignItems="center">
           <IconButton
             aria-label={`Switch to ${colorMode === 'light' ? 'dark' : 'light'} mode`}
