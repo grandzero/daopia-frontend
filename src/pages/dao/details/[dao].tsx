@@ -1,10 +1,15 @@
 import { RequestedData, useReadDaopia } from 'hooks/useReadDaopia'
 import { DaoDetailsData, FrontendDetailsData, DealDetailsData, PaymentType, RegistrationStatus } from '../../../types'
 import { useEffect, useState } from 'react'
-import { Box, Container, Heading, Text, Image, useColorModeValue, Flex, Stack } from '@chakra-ui/react'
+import { Box, Container, Heading, Text, Image, useColorModeValue, Flex, Stack, Center, Button, Icon } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { ethers } from 'ethers'
 import moment from 'moment'
+import { FaHandHoldingUsd } from 'react-icons/fa'
+import daopiaABI from '../../../assets/abis/daopiaABI'
+// Import wagmi to get the connected account address
+import { useAccount, useConnect } from 'wagmi'
+import { useWriteDaopia } from 'hooks/useWriteDaopia'
 
 const registrationStatusMapping: Record<number, RegistrationStatus> = {
   0: RegistrationStatus.Open,
@@ -24,14 +29,24 @@ function DaoDetails({ daoData }: any) {
   const [daoDetails, setDaoDetailsData] = useState<any>()
   const [frontendDetails, setDaoFrontends] = useState<any>()
   const [dealDetails, setDaoDeals] = useState<any>()
+  const [userDaoStatus, setUserDaoStatus] = useState<any>()
+  const [paymentLoading, setPaymentLoading] = useState<boolean>(false)
   const gradient = useColorModeValue('linear-gradient(45deg,  #2980b9, #6dd5fa, #ffffff)', 'linear-gradient(45deg, #373b44, #4286f4, #000000)')
   const boxColorMode = useColorModeValue('white', 'gray.800')
   const headlineColorMode = useColorModeValue('gray.700', 'white')
   const normalTextColorMode = useColorModeValue('gray.600', 'gray.300')
-
+  const { address, connector } = useAccount()
   const result = useReadDaopia({ requestedData: RequestedData.DaoDetails, args: [daoData?.dao] })
   const frontendResult: any = useReadDaopia({ requestedData: RequestedData.DaoList, args: [] })
   const dealResult = useReadDaopia({ requestedData: RequestedData.DealDetails, args: [daoData?.dao] })
+  const userStatus = useReadDaopia({ requestedData: RequestedData.GetUser, args: [address, daoData?.dao] })
+  const contract = useWriteDaopia()
+  // const {contractWrite, waitForTransaction} = useWriteDaopia({requestedData: WriteData.MakePayment, args: [daoData?.dao], value: })
+  useEffect(() => {
+    if (typeof userStatus !== 'undefined') {
+      setUserDaoStatus(Number(userStatus))
+    }
+  }, [userStatus])
 
   useEffect(() => {
     if (result) {
@@ -39,6 +54,20 @@ function DaoDetails({ daoData }: any) {
       setDaoDetailsData(details)
     }
   }, [result])
+
+  const handleMakePayment = async () => {
+    //console.log(res)
+    //let result = await contract.proposalsTableId()
+    setPaymentLoading(true)
+    try {
+      let tx = await contract.makePayment(daoData?.dao.toString().toLowerCase(), { value: ethers.parseEther(ethers.formatEther(daoDetails?.price)) })
+      await tx.wait()
+      setPaymentLoading(false)
+    } catch (error) {
+      setPaymentLoading(false)
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
     if (frontendResult) {
@@ -127,6 +156,23 @@ function DaoDetails({ daoData }: any) {
               <Text mt={2} color={normalTextColorMode}>
                 DAO Address: {frontendDetails.dao}
               </Text>
+              <Center mt={6}>
+                {!userDaoStatus ? (
+                  <Button
+                    disabled={paymentLoading}
+                    onClick={handleMakePayment}
+                    colorScheme="teal"
+                    variant="solid"
+                    size="md"
+                    leftIcon={<Icon as={FaHandHoldingUsd} />}>
+                    {paymentLoading ? 'Loading...' : 'Make Payment'}
+                  </Button>
+                ) : (
+                  <Button disabled colorScheme="teal" variant="solid" size="md" leftIcon={<Icon as={FaHandHoldingUsd} />}>
+                    Already member
+                  </Button>
+                )}
+              </Center>
             </Box>
           </Box>
         )}
