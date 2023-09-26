@@ -158,6 +158,10 @@ const MakeContribution = ({ daoData }: any) => {
               <Text fontSize={'2xl'} textAlign={'center'}>
                 {dao}
               </Text>
+              <Text fontSize={'md'} color="grey" textAlign={'center'}>
+                Recording your contribution request may take some time. Please be patient and wait for the transaction to be confirmed. Don't close
+                this page.
+              </Text>
               {step === 1 && (
                 <VStack spacing={4} align="stretch">
                   <Input placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />

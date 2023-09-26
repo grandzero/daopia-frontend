@@ -26,6 +26,7 @@
     "@chakra-ui/react": "2.4.4",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
+    "@lighthouse-web3/sdk": "^0.2.8",
     "@next/font": "13.1.1",
     "@tableland/sdk": "^4.5.1",
     "@web3modal/ethereum": "^2.4.1",
