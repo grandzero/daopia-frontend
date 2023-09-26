@@ -45,3 +45,40 @@ export interface PassportStamp {
     }
   }
 }
+
+export class DaoDetailsData {
+  constructor(
+    public period: BigInt,
+    public price: BigInt,
+    public isBalanceLocked: boolean,
+    public paymentType: any,
+    public paymentContract: string,
+    public vault: string,
+    public registrationStatus: any
+  ) {}
+}
+
+export class DealDetailsData {
+  constructor(public repair_treshold: BigInt, public renew_treshold: BigInt, public num_copies: BigInt) {}
+}
+
+export class FrontendDetailsData {
+  constructor(public name: string, public description: string, public logoUrl: string, public communication: string, public dao: string) {}
+}
+export class ProposalDetailsData {
+  constructor(public contributer: string, public cid: string, public description: string, public status: any) {}
+}
+
+export enum PaymentType {
+  Token = 'Token',
+  Ether = 'Ether',
+  Contribution = 'Contribution',
+  Other = 'Other',
+}
+
+export enum RegistrationStatus {
+  Open = 'Open',
+  Closed = 'Closed',
+  Permissioned = 'Permissioned',
+  Other = 'Other',
+}

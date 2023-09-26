@@ -1,8 +1,7 @@
-import { useContractRead } from 'wagmi'
 import { Box, Grid, Image, Text, Button, useColorMode, VStack, Heading, Center, Container } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import daopiaABI from '../assets/abis/daopiaABI'
+import { useReadDaopia, RequestedData } from 'hooks/useReadDaopia'
 const daos = [
   {
     id: 1,
@@ -43,18 +42,11 @@ const Dashboard = () => {
   const router = useRouter()
   const textColor = { light: 'gray.700', dark: 'gray.200' }
   const bgColor = { light: 'gray.50', dark: 'gray.900' }
-  const contractRead = useContractRead({
-    address: `0x${process.env.NEXT_PUBLIC_DAOPIA_CONTRACT_ADDRESS}`,
-    abi: daopiaABI.abi,
-    functionName: 'getDaoList',
-    args: [],
-  })
+  const result = useReadDaopia({ requestedData: RequestedData.DaoList, args: [] })
+
   useEffect(() => {
-    ;(async () => {
-      let result = await contractRead.refetch()
-      result?.data && setDaoList(result.data)
-    })()
-  }, [])
+    result && setDaoList(result)
+  }, [result])
 
   return (
     <VStack minHeight="100vh" spacing={0} align="stretch">
