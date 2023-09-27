@@ -25,8 +25,8 @@ const MakeContribution = ({ daoData }: any) => {
   const handleOnchainRecord = async () => {
     try {
       setLoading(true)
-      let result = await contract.makeProposalToDao(dao, description)
-      await result.wait()
+      //let result = await contract.makeProposalToDao(dao, description)
+      //await result.wait()
 
       setStep(3)
     } catch (e) {
@@ -47,47 +47,52 @@ const MakeContribution = ({ daoData }: any) => {
       alert('Please enter the description and select a file')
       return
     }
-    setLoading(true)
-    let id: any
-    try {
-      const db = new Database({ autoWait: false })
-      const { results } = await db.prepare(`SELECT * FROM ${process.env.NEXT_PUBLIC_DAOPIA_TABLENAME};`).all()
-
-      let contributionDetails: any = results.find(
-        (item: any) =>
-          item.cid == 'cid' &&
-          item.dao.toLowerCase() == dao.toLowerCase() &&
-          //@ts-ignore
-          item.contributer.toLowerCase() == address.toLowerCase() &&
-          item.description == description
-      )
-      if (contributionDetails) {
-        id = contributionDetails.id
-      } else {
-        toast({
-          title: 'Error uploading file: Please make sure your onchain record finalized',
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-        })
-        setLoading(false)
-        return
-      }
-    } catch (e) {
-      setLoading(false)
-      return
-    }
+    // console.log(description)
+    // setLoading(true)
+    // let id: any
+    // try {
+    //   const db = new Database({ autoWait: false })
+    //   const { results } = await db.prepare(`SELECT * FROM ${process.env.NEXT_PUBLIC_DAOPIA_TABLENAME};`).all()
+    //   console.log(results)
+    //   let contributionDetails: any = results.find(
+    //     (item: any) =>
+    //       item.cid == 'cid' &&
+    //       item.dao.toLowerCase() == dao.toLowerCase() &&
+    //       //@ts-ignore
+    //       item.contributer.toLowerCase() == address.toLowerCase() &&
+    //       item.description == description
+    //   )
+    //   if (contributionDetails) {
+    //     id = contributionDetails.id
+    //   } else {
+    //     toast({
+    //       title: 'Error uploading file: Please make sure your onchain record finalized',
+    //       status: 'error',
+    //       duration: 3000,
+    //       isClosable: true,
+    //     })
+    //     setLoading(false)
+    //     return
+    //   }
+    // } catch (e) {
+    //   setLoading(false)
+    //   return
+    // }
     // Create a FormData object
     const formData = new FormData()
 
     // Append the file, dao, and a random id to the FormData object
     formData.append('file', file)
     formData.append('dao', dao) // Replace 'dao' with the actual dao value
-    formData.append('id', id) // Append a random id
-
+    formData.append('id', '3') // Append a random id
+    //const resp = await axios.get('https://api.daopia.com/api/info')
+    //console.log(resp)
+    //console.log(resp.data)
+    //return
     try {
+      setLoading(false)
       // Make the POST request to the server
-      const response = await axios.post(process.env.NEXT_PUBLIC_BASE_URL + 'uploadFile', formData, {
+      const response = await axios.post('https://api.daopia.com/api/' + 'uploadFile', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

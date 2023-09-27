@@ -183,7 +183,7 @@ function DaoDetails({ daoData }: any) {
                   variant="solid"
                   size="md"
                   leftIcon={<Icon as={FaListAlt} />}>
-                  See Contributions
+                  Contribute
                 </Button>
                 <Button
                   onClick={() => {
