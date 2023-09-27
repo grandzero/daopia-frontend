@@ -32,18 +32,23 @@ interface FileData {
 }
 
 const encryptionSignature = async () => {
-  //@ts-ignore
-  const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const signer = await provider.getSigner()
-  const address = await signer.getAddress()
-  console.log('Message Requested')
-  const messageRequested = (await lighthouse.getAuthMessage(address)).data.message
-  console.log(messageRequested)
-  const signedMessage = await signer.signMessage(messageRequested)
-  console.log('Sign complete', signedMessage)
-  return {
-    signedMessage: signedMessage,
-    publicKey: address,
+  try {
+    //@ts-ignore
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = await provider.getSigner()
+    const address = await signer.getAddress()
+    console.log('Message Requested')
+    const messageRequested = (await lighthouse.getAuthMessage(address)).data.message
+    console.log(messageRequested)
+    const signedMessage = await signer.signMessage(messageRequested)
+    console.log('Sign complete', signedMessage)
+    return {
+      signedMessage: signedMessage,
+      publicKey: address,
+    }
+  } catch (e) {
+    console.log(e)
+    return { signedMessage: '', publicKey: '' }
   }
 }
 
