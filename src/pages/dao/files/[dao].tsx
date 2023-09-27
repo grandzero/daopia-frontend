@@ -21,7 +21,7 @@ import { FaDownload } from 'react-icons/fa' // Importing download icon
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useReadTable } from 'hooks/useReadTable'
-import * as lighthouse from '@lighthouse-web3/sdk'
+// import * as lighthouse from '@lighthouse-web3/sdk'
 import { ethers } from 'ethers-new'
 interface FileData {
   contributer: string
@@ -31,21 +31,21 @@ interface FileData {
   url?: string
 }
 
-const encryptionSignature = async () => {
-  //@ts-ignore
-  const provider = new ethers.BrowserProvider(window.ethereum)
-  const signer = await provider.getSigner()
-  const address = await signer.getAddress()
-  console.log('Message Requested')
-  const messageRequested = (await lighthouse.getAuthMessage(address)).data.message
-  console.log(messageRequested)
-  const signedMessage = await signer.signMessage(messageRequested)
-  console.log('Sign complete', signedMessage)
-  return {
-    signedMessage: signedMessage,
-    publicKey: address,
-  }
-}
+// const encryptionSignature = async () => {
+//   //@ts-ignore
+//   const provider = new ethers.BrowserProvider(window.ethereum)
+//   const signer = await provider.getSigner()
+//   const address = await signer.getAddress()
+//   console.log('Message Requested')
+//   const messageRequested = (await lighthouse.getAuthMessage(address)).data.message
+//   console.log(messageRequested)
+//   const signedMessage = await signer.signMessage(messageRequested)
+//   console.log('Sign complete', signedMessage)
+//   return {
+//     signedMessage: signedMessage,
+//     publicKey: address,
+//   }
+// }
 
 const DaoFilesPage: React.FC = ({ daoData }: any) => {
   //   const router = useRouter()
@@ -61,16 +61,16 @@ const DaoFilesPage: React.FC = ({ daoData }: any) => {
   const decrypt = async (cid: string) => {
     // Fetch file encryption key
     try {
-      const { publicKey, signedMessage } = await encryptionSignature()
+      // const { publicKey, signedMessage } = await encryptionSignature()
       /*
       fetchEncryptionKey(cid, publicKey, signedMessage)
         Parameters:
           CID: CID of the file to decrypt
           publicKey: public key of the user who has access to file or owner
           signedMessage: message signed by the owner of publicKey
-    */
-      const keyObject: any = await lighthouse.fetchEncryptionKey(cid, publicKey, signedMessage)
-      console.log('encryption key received')
+    // */
+      //   const keyObject: any = await lighthouse.fetchEncryptionKey(cid, publicKey, signedMessage)
+      //   console.log('encryption key received')
       // Decrypt file
       /*
       decryptFile(cid, key, mimeType)
@@ -80,15 +80,15 @@ const DaoFilesPage: React.FC = ({ daoData }: any) => {
           mimeType: default null, mime type of file
     */
 
-      const fileType = 'image/jpeg'
-      const decrypted = await lighthouse.decryptFile(cid, keyObject.data.key, fileType)
-      console.log(decrypted)
+      // const fileType = 'image/jpeg'
+      // const decrypted = await lighthouse.decryptFile(cid, keyObject.data.key, fileType)
+      // console.log(decrypted)
       /*
       Response: blob
     */
 
       // View File
-      const url = URL.createObjectURL(decrypted)
+      const url = '#' //URL.createObjectURL(decrypted)
       let newFiles = [...files]
       newFiles.forEach((file) => {
         if (file.cid === cid) {
