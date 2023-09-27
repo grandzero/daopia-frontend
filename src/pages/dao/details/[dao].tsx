@@ -96,7 +96,7 @@ function DaoDetails({ daoData }: any) {
       <Flex direction={{ base: 'column', md: 'row' }} pt={50}>
         <Box flex={2}>
           <Stack spacing={11}>
-            {daoDetails && (
+            {daoDetails ? (
               <Box p={8} rounded="md" shadow="lg" bg={boxColorMode}>
                 <Heading size="lg" mb={6} color={headlineColorMode} fontWeight="bold">
                   DAO Details
@@ -123,9 +123,15 @@ function DaoDetails({ daoData }: any) {
                   <strong>Registration Status:</strong> {registrationStatusMapping[daoDetails?.registrationStatus]}
                 </Text>
               </Box>
+            ) : (
+              <Box p={8} rounded="md" shadow="lg" bg={boxColorMode}>
+                <Heading size="lg" mb={6} color={headlineColorMode} fontWeight="bold">
+                  Loading...
+                </Heading>
+              </Box>
             )}
 
-            {dealDetails && (
+            {dealDetails ? (
               <Box p={8} rounded="md" shadow="lg" bg={boxColorMode}>
                 <Heading size="lg" mb={6} color={headlineColorMode} fontWeight="bold">
                   Deal Details
@@ -140,10 +146,16 @@ function DaoDetails({ daoData }: any) {
                   <strong>Number of Copies:</strong> {dealDetails?.num_copies?.toString()}
                 </Text>
               </Box>
+            ) : (
+              <Box p={8} rounded="md" shadow="lg" bg={boxColorMode}>
+                <Heading size="lg" mb={6} color={headlineColorMode} fontWeight="bold">
+                  Loading...
+                </Heading>
+              </Box>
             )}
           </Stack>
         </Box>
-        {frontendDetails && (
+        {frontendDetails ? (
           <Box flex={1} textAlign={'center'} mb={{ base: 8, md: 0 }} ml={25} mr={{ md: 8 }}>
             <Box bgGradient={gradient} p={8} textAlign={'center'} rounded="md" shadow="lg" display="flex" flexDirection="column" alignItems="center">
               <Image src={frontendDetails.logoUrl} alt={frontendDetails.name} boxSize="150px" objectFit="cover" mb={4} borderRadius="full" />
@@ -197,6 +209,12 @@ function DaoDetails({ daoData }: any) {
                 </Button>
               </HStack>
             </Box>
+          </Box>
+        ) : (
+          <Box p={8} rounded="md" shadow="lg" bg={boxColorMode}>
+            <Heading size="lg" mb={6} color={headlineColorMode} fontWeight="bold">
+              Loading...
+            </Heading>
           </Box>
         )}
       </Flex>
