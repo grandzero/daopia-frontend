@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ethers } from 'ethers-new'
+import { ethers } from 'ethers'
 import daopiaABI from '../assets/abis/daopiaABI'
 export enum WriteData {
   MakePayment = 'makePayment',
@@ -13,7 +13,7 @@ export function useWriteDaopia(): any {
   useEffect(() => {
     ;(async () => {
       //@ts-ignore
-      const provider = new ethers.BrowserProvider(window.ethereum)
+      const provider = new ethers.providers.Web3Provider(window.ethereum)
       const signer = await provider?.getSigner()
       const inlineContract = new ethers.Contract(`0x${process.env.NEXT_PUBLIC_DAOPIA_CONTRACT_ADDRESS}`, daopiaABI.abi, signer)
       setContract(inlineContract)

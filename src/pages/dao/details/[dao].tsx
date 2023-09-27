@@ -3,7 +3,7 @@ import { DaoDetailsData, FrontendDetailsData, DealDetailsData, PaymentType, Regi
 import { useEffect, useState } from 'react'
 import { Box, Container, Heading, Text, Image, useColorModeValue, Flex, Stack, Center, Button, Icon, HStack } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { ethers } from 'ethers-new'
+import { ethers } from 'ethers'
 import moment from 'moment'
 import { FaFileAlt, FaHandHoldingUsd, FaListAlt } from 'react-icons/fa'
 import daopiaABI from '../../../assets/abis/daopiaABI'
@@ -61,7 +61,9 @@ function DaoDetails({ daoData }: any) {
     //let result = await contract.proposalsTableId()
     setPaymentLoading(true)
     try {
-      let tx = await contract.makePayment(daoData?.dao.toString().toLowerCase(), { value: ethers.parseEther(ethers.formatEther(daoDetails?.price)) })
+      let tx = await contract.makePayment(daoData?.dao.toString().toLowerCase(), {
+        value: ethers.utils.parseEther(ethers.utils.formatEther(daoDetails?.price)),
+      })
       await tx.wait()
       setPaymentLoading(false)
     } catch (error) {
@@ -105,7 +107,7 @@ function DaoDetails({ daoData }: any) {
                   <strong>Period:</strong> {moment.duration(Number(daoDetails?.period), 'seconds').humanize().toUpperCase()}
                 </Text>
                 <Text fontSize="lg" mt={2} color={normalTextColorMode}>
-                  <strong>Price:</strong> {ethers.formatEther(daoDetails?.price)} FIL
+                  <strong>Price:</strong> {ethers.utils.formatEther(daoDetails?.price)} FIL
                 </Text>
                 <Text fontSize="lg" mt={2} color={normalTextColorMode}>
                   <strong>Is Balance Locked:</strong> {daoDetails?.isBalanceLocked ? 'Yes' : 'No'}
