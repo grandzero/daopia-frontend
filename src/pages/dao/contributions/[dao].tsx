@@ -3,7 +3,6 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useWriteDaopia } from 'hooks/useWriteDaopia'
 import axios from 'axios'
-import { Database } from '@tableland/sdk'
 import { useAccount } from 'wagmi'
 const MakeContribution = ({ daoData }: any) => {
   const router = useRouter()

@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
-import { Database } from '@tableland/sdk'
+import axios from 'axios'
 
 export function useReadTable(): any {
   let [queryResult, setQueryResult] = useState<any>()
 
   useEffect(() => {
     ;(async () => {
-      const db = new Database({ autoWait: false })
-      const { results } = await db.prepare(`SELECT * FROM ${process.env.NEXT_PUBLIC_DAOPIA_TABLENAME};`).all()
-      setQueryResult(results)
+      const res = await axios.get(`https://kh3qnrs3z7ipp73ngs5ojfqx440emwwl.lambda-url.eu-central-1.on.aws/`)
+      console.log(res.data)
+      setQueryResult(res.data)
     })()
   }, [])
 

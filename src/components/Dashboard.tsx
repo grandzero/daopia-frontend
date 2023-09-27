@@ -46,6 +46,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     result && setDaoList(result)
+    console.log(result)
   }, [result])
 
   return (

@@ -6,7 +6,6 @@ import { useRouter } from 'next/router'
 import { ethers } from 'ethers'
 import moment from 'moment'
 import { FaFileAlt, FaHandHoldingUsd, FaListAlt } from 'react-icons/fa'
-import daopiaABI from '../../../assets/abis/daopiaABI'
 // Import wagmi to get the connected account address
 import { useAccount, useConnect } from 'wagmi'
 import { useWriteDaopia } from 'hooks/useWriteDaopia'
@@ -62,7 +61,7 @@ function DaoDetails({ daoData }: any) {
     setPaymentLoading(true)
     try {
       let tx = await contract.makePayment(daoData?.dao.toString().toLowerCase(), {
-        value: ethers.utils.parseEther(ethers.utils.formatEther(daoDetails?.price)),
+        value: ethers.parseEther(ethers.formatEther(daoDetails?.price)),
       })
       await tx.wait()
       setPaymentLoading(false)
@@ -74,13 +73,14 @@ function DaoDetails({ daoData }: any) {
 
   useEffect(() => {
     if (frontendResult) {
-      let currentData = frontendResult.find((item: any) => item.dao === daoData.dao)
+      console.log(frontendResult)
+      let currentData = frontendResult.find((item: any) => item?.dao === daoData?.dao)
       let frontend = new FrontendDetailsData(
-        currentData.name,
-        currentData.description,
-        currentData.logoUrl,
-        currentData.communication,
-        currentData.dao
+        currentData?.name,
+        currentData?.description,
+        currentData?.logoUrl,
+        currentData?.communication,
+        currentData?.dao
       )
       setDaoFrontends(frontend)
     }
@@ -107,7 +107,7 @@ function DaoDetails({ daoData }: any) {
                   <strong>Period:</strong> {moment.duration(Number(daoDetails?.period), 'seconds').humanize().toUpperCase()}
                 </Text>
                 <Text fontSize="lg" mt={2} color={normalTextColorMode}>
-                  <strong>Price:</strong> {ethers.utils.formatEther(daoDetails?.price)} FIL
+                  <strong>Price:</strong> {ethers.formatEther(daoDetails?.price ?? '0')} FIL
                 </Text>
                 <Text fontSize="lg" mt={2} color={normalTextColorMode}>
                   <strong>Is Balance Locked:</strong> {daoDetails?.isBalanceLocked ? 'Yes' : 'No'}
@@ -160,16 +160,16 @@ function DaoDetails({ daoData }: any) {
         {frontendDetails ? (
           <Box flex={1} textAlign={'center'} mb={{ base: 8, md: 0 }} ml={25} mr={{ md: 8 }}>
             <Box bgGradient={gradient} p={8} textAlign={'center'} rounded="md" shadow="lg" display="flex" flexDirection="column" alignItems="center">
-              <Image src={frontendDetails.logoUrl} alt={frontendDetails.name} boxSize="150px" objectFit="cover" mb={4} borderRadius="full" />
+              <Image src={frontendDetails?.logoUrl} alt={frontendDetails?.name} boxSize="150px" objectFit="cover" mb={4} borderRadius="full" />
               <Heading mb={4} fontSize="2xl" color={headlineColorMode}>
-                {frontendDetails.name}
+                {frontendDetails?.name}
               </Heading>
-              <Text color={normalTextColorMode}>{frontendDetails.description}</Text>
+              <Text color={normalTextColorMode}>{frontendDetails?.description}</Text>
               <Text mt={4} color={normalTextColorMode}>
-                Communication: {frontendDetails.communication}
+                Communication: {frontendDetails?.communication}
               </Text>
               <Text mt={2} color={normalTextColorMode}>
-                DAO Address: {frontendDetails.dao}
+                DAO Address: {frontendDetails?.dao}
               </Text>
               <Center mt={6}>
                 {!userDaoStatus ? (

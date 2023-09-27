@@ -23,6 +23,7 @@ export function useReadDaopia({ requestedData, args }: UseGetDaoProps): boolean 
     args: args,
   })
   useEffect(() => {
+    console.log('works')
     let res = contractRead
     let data = res?.data ?? []
     setResult(data)
