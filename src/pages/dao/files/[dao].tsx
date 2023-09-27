@@ -21,7 +21,7 @@ import { FaDownload } from 'react-icons/fa' // Importing download icon
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useReadTable } from 'hooks/useReadTable'
-// import * as lighthouse from '@lighthouse-web3/sdk'
+import * as lighthouse from '@lighthouse-web3/sdk'
 import { ethers } from 'ethers-new'
 interface FileData {
   contributer: string
@@ -88,7 +88,7 @@ const DaoFilesPage: React.FC = ({ daoData }: any) => {
     */
 
       // View File
-      const url = '#' //URL.createObjectURL(decrypted)
+      const url = 'test' //URL.createObjectURL(decrypted)
       let newFiles = [...files]
       newFiles.forEach((file) => {
         if (file.cid === cid) {
