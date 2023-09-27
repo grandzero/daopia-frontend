@@ -87,7 +87,7 @@ const MakeContribution = ({ daoData }: any) => {
 
     try {
       // Make the POST request to the server
-      const response = await axios.post('http://localhost:1337/api/uploadFile', formData, {
+      const response = await axios.post(process.env.NEXT_PUBLIC_BASE_URL + 'uploadFile', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
