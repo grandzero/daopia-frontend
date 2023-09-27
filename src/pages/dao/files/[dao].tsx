@@ -37,7 +37,7 @@ const encryptionSignature = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = await provider.getSigner()
     const address = await signer.getAddress()
-
+    console.log('Message requested')
     const messageRequested = (await lighthouse.getAuthMessage(address)).data.message
     console.log('Message requested')
     console.log(messageRequested)
