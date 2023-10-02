@@ -21,7 +21,7 @@ import { FaDownload } from 'react-icons/fa' // Importing download icon
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useReadTable } from 'hooks/useReadTable'
-import * as lighthouse from '@lighthouse-web3/sdk'
+// import * as lighthouse from '@lighthouse-web3/sdk'
 import { ethers } from 'ethers'
 import axios from 'axios'
 interface FileData {
@@ -75,7 +75,7 @@ const DaoFilesPage: React.FC = ({ daoData }: any) => {
     // Fetch file encryption key
     try {
       const { publicKey, signedMessage } = await encryptionSignature()
-      console.log(publicKey, signedMessage)
+      //console.log(publicKey, signedMessage)
       /*
       fetchEncryptionKey(cid, publicKey, signedMessage)
         Parameters:
@@ -83,8 +83,8 @@ const DaoFilesPage: React.FC = ({ daoData }: any) => {
           publicKey: public key of the user who has access to file or owner
           signedMessage: message signed by the owner of publicKey
     */
-      const keyObject: any = await lighthouse.fetchEncryptionKey(cid, publicKey, signedMessage)
-      console.log('encryption key received')
+      //const keyObject: any = await lighthouse.fetchEncryptionKey(cid, publicKey, signedMessage)
+      //console.log('encryption key received')
       // Decrypt file
       /*
       decryptFile(cid, key, mimeType)
@@ -94,14 +94,15 @@ const DaoFilesPage: React.FC = ({ daoData }: any) => {
           mimeType: default null, mime type of file
     */
 
-      const fileType = 'image/jpeg'
-      const decrypted = await lighthouse.decryptFile(cid, keyObject.data.key, fileType)
-      console.log(decrypted)
+      //const fileType = 'image/jpeg'
+      //const decrypted = await lighthouse.decryptFile(cid, keyObject.data.key, fileType)
+      //console.log(decrypted)
       /*
       Response: blob
     */
-
+      const decrypted = await axios.post('/api/servefile', { signedMessage, address: publicKey, cid })
       // View File
+      //@ts-ignore
       const url = URL.createObjectURL(decrypted)
       let newFiles = [...files]
       newFiles.forEach((file) => {
