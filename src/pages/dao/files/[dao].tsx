@@ -23,6 +23,7 @@ import { useEffect, useState } from 'react'
 import { useReadTable } from 'hooks/useReadTable'
 import * as lighthouse from '@lighthouse-web3/sdk'
 import { ethers } from 'ethers'
+import axios from 'axios'
 interface FileData {
   contributer: string
   cid: string
@@ -38,7 +39,13 @@ const encryptionSignature = async () => {
     const signer = await provider.getSigner()
     const address = await signer.getAddress()
     console.log('Message requested')
-    const messageRequested = (await lighthouse.getAuthMessage(address)).data.message
+    let result = await axios.post('/api/gettoken', { address })
+    //@ts-ignore
+    const { token } = result.data
+    console.log(result)
+    console.log(token)
+    console.log(token.data.message)
+    const messageRequested = token.data.message
     console.log('Message requested')
     console.log(messageRequested)
     const signedMessage = await signer.signMessage(messageRequested)
